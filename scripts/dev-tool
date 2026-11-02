@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+project_dir=$(cd "$(dirname "$0")/.." && pwd)
+mkdir -p /workspace/.cache/construction-composer
+docker --host=unix:///var/run/docker.sock run --rm --user "$(id -u):$(id -g)" \
+ --mount type=bind,src=/workspace,dst=/workspace \
+ --mount type=bind,src=/etc/ssl/certs/ca-certificates.crt,dst=/run/ca.pem,readonly \
+ -e COMPOSER_CAFILE=/run/ca.pem -e GIT_SSL_CAINFO=/run/ca.pem \
+ -e COMPOSER_HOME=/workspace/.cache/construction-composer \
+ -w "$project_dir" construction-php:8.4 "$@"
