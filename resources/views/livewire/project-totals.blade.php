@@ -1,0 +1,1 @@
+<div><div class="row no-print"><span class="muted">خلاصه مالی از دفتر حساب</span><button type="button" wire:click="$refresh" class="secondary">به‌روزرسانی مانده‌ها</button></div>@include('accounting.stats')</div>
